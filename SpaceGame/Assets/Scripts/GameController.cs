@@ -33,13 +33,21 @@ public class GameController : MonoBehaviour
             if (currentNumberOfEnemies <= 0)
             {
                 waveNumber++;
-                waveText.text = "Волна: " + waveNumber;
+                if (waveNumber < 10)
+                    waveText.text = "00" + waveNumber;
+                else if (waveNumber < 100 & waveNumber >10)
+                    waveText.text = "0" + waveNumber;
+                else if (waveNumber < 1000 & waveNumber > 100)
+                    waveText.text = "" + waveNumber;
+                else
+                    waveNumber = 0;
+
                 float randDirection;
                 float randDistance;
                 for (int i = 0; i < enemiesPerWave; i++)
                 {
                     randDistance = Random.Range(10, 25);
-                    randDirection = Random.Range(0, 360);
+                    randDirection = Random.Range(45, 125);
                     float posX = this.transform.position.x + (Mathf.Cos((randDirection) * Mathf.Deg2Rad) * randDistance);
                     float posY = this.transform.position.y + (Mathf.Sin((randDirection) * Mathf.Deg2Rad) * randDistance);
                     Instantiate(enemy, new Vector3(posX, posY, 0), this.transform.rotation);

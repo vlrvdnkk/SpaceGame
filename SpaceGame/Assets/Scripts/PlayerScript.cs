@@ -4,12 +4,12 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public float playerSpeed = 2.0f;
-    private float currentSpeed = 0.0f;
+    //private float currentSpeed = 0.0f;
     public List<KeyCode> upButton;
     public List<KeyCode> downButton;
     public List<KeyCode> leftButton;
     public List<KeyCode> rightButton;
-    private Vector3 lastMovement = new Vector3();
+    //private Vector3 lastMovement = new Vector3();
     public Transform laser;
     public float laserDistance = 0.2f;
     public float timeBetweenFires = 0.3f;
@@ -25,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         Rotation();
-        Movement();
+        //Movement();
         foreach (KeyCode element in shootButton)
         {
             if (Input.GetKey(element) && timeTilNextFire < 0)
@@ -49,26 +49,26 @@ public class PlayerScript : MonoBehaviour
         this.transform.rotation = rot;
     }
 
-    void Movement()
-    {
-        Vector3 movement = new Vector3();
-        movement += MoveIfPressed(upButton, Vector3.up);
-        movement += MoveIfPressed(downButton, Vector3.down);
-        movement += MoveIfPressed(leftButton, Vector3.left);
-        movement += MoveIfPressed(rightButton, Vector3.right);
-        movement.Normalize();
-        if (movement.magnitude > 0)
-        {
-            currentSpeed = playerSpeed;
-            this.transform.Translate(movement * Time.deltaTime * playerSpeed, Space.World);
-            lastMovement = movement;
-        }
-        else
-        {
-            this.transform.Translate(lastMovement * Time.deltaTime * currentSpeed, Space.World);
-            currentSpeed *= 0.9f;
-        }
-    }
+    //void Movement()
+    //{
+    //    Vector3 movement = new Vector3();
+    //    movement += MoveIfPressed(upButton, Vector3.up);
+    //    movement += MoveIfPressed(downButton, Vector3.down);
+    //    movement += MoveIfPressed(leftButton, Vector3.left);
+    //    movement += MoveIfPressed(rightButton, Vector3.right);
+    //    movement.Normalize();
+    //    if (movement.magnitude > 0)
+    //    {
+    //        currentSpeed = playerSpeed;
+    //        this.transform.Translate(movement * Time.deltaTime * playerSpeed, Space.World);
+    //        lastMovement = movement;
+    //    }
+    //    else
+    //    {
+    //        this.transform.Translate(lastMovement * Time.deltaTime * currentSpeed, Space.World);
+    //        currentSpeed *= 0.9f;
+    //    }
+    //}
 
     Vector3 MoveIfPressed(List<KeyCode> keyList, Vector3 Movement)
     {
