@@ -4,6 +4,7 @@ public class EnemyScript : MonoBehaviour
 {
     public int health = 2;
     public Transform explosion;
+    public AudioClip hitSound;
 
     void OnCollisionEnter2D(Collision2D theCollision)
     {
@@ -12,6 +13,7 @@ public class EnemyScript : MonoBehaviour
             LaserScript laser = theCollision.gameObject.GetComponent("LaserScript") as LaserScript;
             health -= laser.damage;
             Destroy(theCollision.gameObject);
+            GetComponent<AudioSource>().PlayOneShot(hitSound);
         }
         if (health <= 0)
         {
@@ -23,6 +25,7 @@ public class EnemyScript : MonoBehaviour
             Destroy(this.gameObject);
             GameController controller = GameObject.Find("GameController").GetComponent("GameController") as GameController;
             controller.KilledEnemy();
+            controller.IncreaseScore(10);
         }
     }
 }

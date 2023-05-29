@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     public float timeBetweenFires = 0.3f;
     private float timeTilNextFire = 0.0f;
     public List<KeyCode> shootButton;
+    public AudioClip shootSound;
 
     void Start()
     {
@@ -87,5 +87,6 @@ public class PlayerScript : MonoBehaviour
         float posX = this.transform.position.x + (Mathf.Cos((transform.localEulerAngles.z - 90) * Mathf.Deg2Rad) * -laserDistance);
         float posY = this.transform.position.y + (Mathf.Sin((transform.localEulerAngles.z - 90) * Mathf.Deg2Rad) * -laserDistance);
         Instantiate(laser, new Vector3(posX, posY, 0), this.transform.rotation);
+        GetComponent<AudioSource>().PlayOneShot(shootSound);
     }
 }

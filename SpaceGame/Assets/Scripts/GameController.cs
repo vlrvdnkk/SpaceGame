@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -10,6 +10,11 @@ public class GameController : MonoBehaviour
     public float timeBeforeWaves = 2.0f;
     public int enemiesPerWave = 10;
     private int currentNumberOfEnemies = 0;
+    private int score = 0;
+    private int waveNumber = 0;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI waveText;
+
     void Start()
     {
         StartCoroutine(SpawnEnemies());
@@ -17,7 +22,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     IEnumerator SpawnEnemies()
@@ -27,6 +32,8 @@ public class GameController : MonoBehaviour
         {
             if (currentNumberOfEnemies <= 0)
             {
+                waveNumber++;
+                waveText.text = "Волна: " + waveNumber;
                 float randDirection;
                 float randDistance;
                 for (int i = 0; i < enemiesPerWave; i++)
@@ -47,5 +54,11 @@ public class GameController : MonoBehaviour
     public void KilledEnemy()
     {
         currentNumberOfEnemies--;
+    }
+
+    public void IncreaseScore(int increase)
+    {
+        score += increase;
+        scoreText.text = "Очки: " + score;
     }
 }
