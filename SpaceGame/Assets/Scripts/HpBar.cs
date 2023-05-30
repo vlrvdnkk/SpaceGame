@@ -5,26 +5,30 @@ using UnityEngine.UI;
 
 public class HpBar : MonoBehaviour
 {
-    public float curHealth = 0.0f;
-    public int maxHealth = 100;
-    public Slider healthBar;
+    [SerializeField] private int _curHealth = 0;
+    [SerializeField] private int _maxHealth = 100;
+    [SerializeField] private Slider _healthBar;
+    [SerializeField] private SpriteRenderer _image;
+    //[SerializeField] private GameObject _observatory;
+    [SerializeField] private Sprite _crashedObservatory;
 
     void Start()
     {
-        curHealth = maxHealth;
+        _curHealth = _maxHealth;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            DamagePlayer(10);
-        }
+
     }
 
     public void DamagePlayer(int damage)
     {
-        curHealth -= damage;
-        healthBar.value = curHealth;
+        _curHealth -= damage;
+        _healthBar.value = _curHealth;
+        if (_curHealth <= 25)
+        {
+            _image.sprite = _crashedObservatory;
+        }
     }
 }

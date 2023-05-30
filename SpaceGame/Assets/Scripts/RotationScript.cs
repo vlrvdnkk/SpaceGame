@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RotationScript : MonoBehaviour
 {
-    private float angle;
+    private float _angle;
     void Update()
     {
         Rotation();
@@ -17,9 +17,9 @@ public class RotationScript : MonoBehaviour
         float dy = this.transform.position.y - worldPos.y;
         if (transform.position.y < worldPos.y)
         {
-            angle = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
-            angle = angle < 0 ? angle : -angle;
-            Quaternion rot = Quaternion.Euler(new Vector3(0, 0, angle + 90));
+            _angle = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
+            _angle = _angle < 0 ? _angle : -_angle;
+            Quaternion rot = Quaternion.Euler(new Vector3(0, 0, _angle + 90));
             this.transform.rotation = rot;
         }
     }

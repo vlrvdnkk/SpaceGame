@@ -3,8 +3,9 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     public int health = 2;
-    public Transform explosion;
-    public AudioClip hitSound;
+    //[SerializeField] private Animation anim;
+    [SerializeField] private Transform explosion;
+    [SerializeField] private AudioClip hitSound;
 
     void OnCollisionEnter2D(Collision2D theCollision)
     {
@@ -15,7 +16,7 @@ public class EnemyScript : MonoBehaviour
             Destroy(theCollision.gameObject);
             GetComponent<AudioSource>().PlayOneShot(hitSound);
         }
-        if (health <= 0)
+        if (theCollision.gameObject.name.Contains("cannon base") | theCollision.gameObject.name.Contains("observatory"))
         {
             if (explosion)
             {
@@ -24,8 +25,22 @@ public class EnemyScript : MonoBehaviour
             }
             Destroy(this.gameObject);
             GameController controller = GameObject.Find("GameController").GetComponent("GameController") as GameController;
+            HpBar controllerhp = GameObject.Find("HPbarBase").GetComponent("HpBar") as HpBar;
             controller.KilledEnemy();
-            controller.IncreaseScore(10);
+            controllerhp.DamagePlayer(25);
+        }
+        if (health <= 0)
+        {
+            if (explosion)
+            {
+                GameObject exploder = ((Transform)Instantiate(explosion, this.transform.position, this.transform.rotation)).gameObject;
+                Destroy(exploder, 2.0f);
+            }
+            //anim.Play("death");
+            Destroy(this.gameObject);
+            GameController controller = GameObject.Find("GameController").GetComponent("GameController") as GameController;
+            controller.KilledEnemy();
+            controller.IncreaseScore(25);
         }
     }
 }
