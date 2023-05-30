@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour
                 float randDistance;
                 for (int i = 0; i < enemiesPerWave; i++)
                 {
-                    randDistance = Random.Range(10, 25);
+                    randDistance = Random.Range(5, 25);
                     randDirection = Random.Range(45, 125);
                     float posX = this.transform.position.x + (Mathf.Cos((randDirection) * Mathf.Deg2Rad) * randDistance);
                     float posY = this.transform.position.y + (Mathf.Sin((randDirection) * Mathf.Deg2Rad) * randDistance);

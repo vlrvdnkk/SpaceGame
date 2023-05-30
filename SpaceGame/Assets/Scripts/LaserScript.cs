@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class LaserScript : MonoBehaviour
 {
-    public float lifetime = 2.0f;
-    public float speed = 5.0f;
+    [SerializeField] private float lifetime = 2.0f;
+    [SerializeField] private float speed = 5.0f;
     public int damage = 1;
 
     void Start()
