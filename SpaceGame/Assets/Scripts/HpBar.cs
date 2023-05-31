@@ -1,0 +1,53 @@
+using Cinemachine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class HpBar : MonoBehaviour
+{
+    [SerializeField] private int _curHealth = 0;
+    [SerializeField] private int _maxHealth = 100;   
+    [SerializeField] private Slider _healthBar;
+    [SerializeField] private Slider _bossBar;
+    [SerializeField] private SpriteRenderer _image;
+    [SerializeField] private Sprite _crashedObservatory;
+    [SerializeField] private CinemachineImpulseSource _cinemachine;
+    [SerializeField] private Animator anim;
+    [SerializeField] private BossScript boss;
+    [SerializeField] private LaserScript laser;
+
+    void Start()
+    {
+        _curHealth = _maxHealth;
+    }
+
+    void Update()
+    {
+
+    }
+
+    public void DamagePlayer(int damage)
+    {
+        _curHealth -= damage;
+        _healthBar.value = _curHealth;
+        if (_curHealth <= 25)
+        {
+            _image.sprite = _crashedObservatory;
+        }
+        if (_curHealth <= 0)
+        {
+            _cinemachine.GenerateImpulse();
+            anim.SetBool("obDeath", true);
+        }
+    }
+    public void BossBar(int health)
+    {
+        _bossBar.value = health;
+    }
+    public void BossBarMax(int health)
+    {
+        _bossBar.maxValue = health;
+        _bossBar.value = health;
+    }
+}
