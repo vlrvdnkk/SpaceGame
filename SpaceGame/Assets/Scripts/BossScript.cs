@@ -9,6 +9,7 @@ public class BossScript : MonoBehaviour
     //[SerializeField] private Animator anim;
     [SerializeField] private Transform _explosion;
     [SerializeField] private AudioClip _hitSound;
+    public int _BSenergy = 50;
     private void Start()
     {
         HpBar hp = GameObject.Find("HPbarBase").GetComponent("HpBar") as HpBar;
@@ -53,7 +54,7 @@ public class BossScript : MonoBehaviour
             Destroy(this.gameObject);
             GameController controller = GameObject.Find("GameController").GetComponent("GameController") as GameController;
             controller.currentNumberOfEnemies -= controller.enemiesPerWave;
-            controller.IncreaseScore(25);
+            controller.IncreaseScore(_BSenergy);
         }
     }
 }

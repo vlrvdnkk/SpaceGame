@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreditButton : MonoBehaviour
+public class BaseButton : MonoBehaviour
 {
     [SerializeField] private Button _button;
-    [SerializeField] private EnemyScript _enemy;
-    [SerializeField] private BossScript _boss;
+    [SerializeField] private HpBar _hp;
     void Start()
     {
         _button.onClick.AddListener(() => Click());
@@ -15,7 +14,6 @@ public class CreditButton : MonoBehaviour
 
     void Click()
     {
-        _enemy._energy *= 2;
-        _boss._BSenergy *= 2;
+        _hp.Start();
     }
 }
