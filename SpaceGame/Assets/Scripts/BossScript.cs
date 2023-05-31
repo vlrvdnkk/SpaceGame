@@ -3,12 +3,17 @@ using Cinemachine;
 using System.Collections;
 using Unity.VisualScripting;
 
-public class EnemyScript : MonoBehaviour
+public class BossScript : MonoBehaviour
 {
-    public int health = 2;
+    public int health = 30;
     //[SerializeField] private Animator anim;
     [SerializeField] private Transform _explosion;
     [SerializeField] private AudioClip _hitSound;
+    private void Start()
+    {
+        HpBar hp = GameObject.Find("HPbarBase").GetComponent("HpBar") as HpBar;
+        hp.BossBarMax(health);
+    }
 
     void OnCollisionEnter2D(Collision2D theCollision)
     {
@@ -18,6 +23,8 @@ public class EnemyScript : MonoBehaviour
             health -= laser.damage;
             Destroy(theCollision.gameObject);
             GetComponent<AudioSource>().PlayOneShot(_hitSound);
+            HpBar hp = GameObject.Find("HPbarBase").GetComponent("HpBar") as HpBar;
+            hp.BossBar(health);
         }
         if (theCollision.gameObject.name.Contains("cannon base") | theCollision.gameObject.name.Contains("observatory"))
         {
@@ -30,8 +37,10 @@ public class EnemyScript : MonoBehaviour
             Destroy(this.gameObject);
             GameController controller = GameObject.Find("GameController").GetComponent("GameController") as GameController;
             HpBar controllerhp = GameObject.Find("HPbarBase").GetComponent("HpBar") as HpBar;
-            controller.KilledEnemy();
-            controllerhp.DamagePlayer(25);
+            controller.currentNumberOfEnemies -= controller.enemiesPerWave;
+            controllerhp.DamagePlayer(100);
+            HpBar hp = GameObject.Find("HPbarBase").GetComponent("HpBar") as HpBar;
+            hp.BossBar(0);
         }
         if (health <= 0)
         {
@@ -43,7 +52,7 @@ public class EnemyScript : MonoBehaviour
             //anim.SetBool("death", true);
             Destroy(this.gameObject);
             GameController controller = GameObject.Find("GameController").GetComponent("GameController") as GameController;
-            controller.KilledEnemy();
+            controller.currentNumberOfEnemies -= controller.enemiesPerWave;
             controller.IncreaseScore(25);
         }
     }
