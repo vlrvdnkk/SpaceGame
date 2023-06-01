@@ -9,6 +9,7 @@ public class EnemyScript : MonoBehaviour
     //[SerializeField] private Animator anim;
     [SerializeField] private Transform _explosion;
     [SerializeField] private AudioClip _hitSound;
+    public int _energy = 10;
 
     void OnCollisionEnter2D(Collision2D theCollision)
     {
@@ -16,8 +17,19 @@ public class EnemyScript : MonoBehaviour
         {
             LaserScript laser = theCollision.gameObject.GetComponent("LaserScript") as LaserScript;
             health -= laser.damage;
-            Destroy(theCollision.gameObject);
-            GetComponent<AudioSource>().PlayOneShot(_hitSound);
+            Shoot();
+        }
+        if (theCollision.gameObject.name.Contains("laserA"))
+        {
+            LaserScript laser = theCollision.gameObject.GetComponent("LaserScript") as LaserScript;
+            health -= laser.damageA;
+            Shoot();
+        }
+        if (theCollision.gameObject.name.Contains("laserB"))
+        {
+            LaserScript laser = theCollision.gameObject.GetComponent("LaserScript") as LaserScript;
+            health -= laser.damageB;
+            Shoot();
         }
         if (theCollision.gameObject.name.Contains("cannon base") | theCollision.gameObject.name.Contains("observatory"))
         {
@@ -44,7 +56,12 @@ public class EnemyScript : MonoBehaviour
             Destroy(this.gameObject);
             GameController controller = GameObject.Find("GameController").GetComponent("GameController") as GameController;
             controller.KilledEnemy();
-            controller.IncreaseScore(25);
+            controller.IncreaseScore(_energy);
+        }
+        void Shoot()
+        {
+            Destroy(theCollision.gameObject);
+            GetComponent<AudioSource>().PlayOneShot(_hitSound);
         }
     }
 }

@@ -11,10 +11,10 @@ public class GameController : MonoBehaviour
     private float timeBeforeWaves = 2.0f;
     public int enemiesPerWave = 5;
     public int currentNumberOfEnemies = 0;
-    [SerializeField] private int score = 0;
-    [SerializeField] private int waveNumber = 0;
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI waveText;
+    public int score = 0;
+    [SerializeField] private int _waveNumber = 0;
+    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _waveText;
 
     void Start()
     {
@@ -33,18 +33,19 @@ public class GameController : MonoBehaviour
         {
             if (currentNumberOfEnemies <= 0)
             {
-                waveNumber++;
-                if (waveNumber < 10)
-                    waveText.text = "00" + waveNumber;
-                else if (waveNumber < 100 & waveNumber >= 10)
-                    waveText.text = "0" + waveNumber;
-                else if (waveNumber < 1000 & waveNumber >= 100)
-                    waveText.text = "" + waveNumber;
+                _waveNumber++;
+                if (_waveNumber < 10)
+                    _waveText.text = "00" + _waveNumber;
+                else if (_waveNumber < 100 & _waveNumber >= 10)
+                    _waveText.text = "0" + _waveNumber;
+                else if (_waveNumber < 1000 & _waveNumber >= 100)
+                    _waveText.text = "" + _waveNumber;
                 else
-                    waveText.text = "end";
-                if (waveNumber % 10 == 0)
+                    _waveText.text = "end";
+                if (_waveNumber % 10 == 0)
                 {
-                    Instantiate(bigEnemy, new Vector3(1.8f, 6.1f, 0), this.transform.rotation);
+                    Transform enemy = Instantiate(bigEnemy, new Vector3(1.8f, 6.1f, 0), this.transform.rotation);
+                    enemy.parent = transform;
                     currentNumberOfEnemies += enemiesPerWave;
                 }
                 else
@@ -53,11 +54,12 @@ public class GameController : MonoBehaviour
                     float randDistance;
                     for (int i = 0; i < enemiesPerWave; i++)
                     {
-                        randDistance = Random.Range(5, 25);
+                        randDistance = Random.Range(5, 15);
                         randDirection = Random.Range(45, 125);
                         float posX = this.transform.position.x + (Mathf.Cos((randDirection) * Mathf.Deg2Rad) * randDistance);
                         float posY = this.transform.position.y + (Mathf.Sin((randDirection) * Mathf.Deg2Rad) * randDistance);
-                        Instantiate(enemy, new Vector3(posX, posY, 0), this.transform.rotation);
+                        Transform enemySmall = Instantiate(enemy, new Vector3(posX, posY, 0), this.transform.rotation);
+                        enemySmall.parent = transform;
                         currentNumberOfEnemies++;
                         yield return new WaitForSeconds(timeBetweenEnemies);
                     }
@@ -76,12 +78,25 @@ public class GameController : MonoBehaviour
     {
         score += increase;
         if (score < 10)
-            scoreText.text = "00" + score;
+            _scoreText.text = "00" + score;
         else if (score < 100 & score >= 10)
-            scoreText.text = "0" + score;
+            _scoreText.text = "0" + score;
         else if (score < 1000 & score >= 100)
-            scoreText.text = "" + score;
+            _scoreText.text = "" + score;
         else
-            scoreText.text = "999";
+            _scoreText.text = "999";
+    }
+
+    public void Red()
+    {
+        _scoreText.color = new Color(255, 0, 0);
+        StartCoroutine(Timer());
+        
+    }
+    
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _scoreText.color = new Color(255, 255, 255);
     }
 }

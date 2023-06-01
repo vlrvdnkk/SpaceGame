@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class ShootPointScript : MonoBehaviour
@@ -24,7 +25,16 @@ public class ShootPointScript : MonoBehaviour
         }
         _timeTilNextFire -= Time.deltaTime;
     }
-    void ShootLaser()
+    public void Cooldown()
+    {
+        if (_timeTilNextFire < 0)
+        {
+            _timeTilNextFire = _timeBetweenFires;
+            ShootLaser();
+        }
+        _timeTilNextFire -= Time.deltaTime;
+    }
+    public void ShootLaser()
     {
         float posX = this.transform.position.x + (Mathf.Cos((transform.localEulerAngles.z - 90) * Mathf.Deg2Rad) * -_laserDistance);
         float posY = this.transform.position.y - 0.2f + (Mathf.Sin((transform.localEulerAngles.z - 90) * Mathf.Deg2Rad) * -_laserDistance);

@@ -5,6 +5,8 @@ public class LaserScript : MonoBehaviour
     [SerializeField] private float lifetime = 2.0f;
     [SerializeField] private float speed = 5.0f;
     public int damage = 1;
+    public int damageA = 1;
+    public int damageB = 3;
 
     void Start()
     {

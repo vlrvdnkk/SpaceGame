@@ -9,6 +9,7 @@ public class BossScript : MonoBehaviour
     //[SerializeField] private Animator anim;
     [SerializeField] private Transform _explosion;
     [SerializeField] private AudioClip _hitSound;
+    public int _BSenergy = 50;
     private void Start()
     {
         HpBar hp = GameObject.Find("HPbarBase").GetComponent("HpBar") as HpBar;
@@ -21,10 +22,19 @@ public class BossScript : MonoBehaviour
         {
             LaserScript laser = theCollision.gameObject.GetComponent("LaserScript") as LaserScript;
             health -= laser.damage;
-            Destroy(theCollision.gameObject);
-            GetComponent<AudioSource>().PlayOneShot(_hitSound);
-            HpBar hp = GameObject.Find("HPbarBase").GetComponent("HpBar") as HpBar;
-            hp.BossBar(health);
+            Shoot();
+        }
+        if (theCollision.gameObject.name.Contains("laserA"))
+        {
+            LaserScript laser = theCollision.gameObject.GetComponent("LaserScript") as LaserScript;
+            health -= laser.damageA;
+            Shoot();
+        }
+        if (theCollision.gameObject.name.Contains("laserB"))
+        {
+            LaserScript laser = theCollision.gameObject.GetComponent("LaserScript") as LaserScript;
+            health -= laser.damageB;
+            Shoot();
         }
         if (theCollision.gameObject.name.Contains("cannon base") | theCollision.gameObject.name.Contains("observatory"))
         {
@@ -53,7 +63,14 @@ public class BossScript : MonoBehaviour
             Destroy(this.gameObject);
             GameController controller = GameObject.Find("GameController").GetComponent("GameController") as GameController;
             controller.currentNumberOfEnemies -= controller.enemiesPerWave;
-            controller.IncreaseScore(25);
+            controller.IncreaseScore(_BSenergy);
+        }
+        void Shoot()
+        {
+            Destroy(theCollision.gameObject);
+            GetComponent<AudioSource>().PlayOneShot(_hitSound);
+            HpBar hp = GameObject.Find("HPbarBase").GetComponent("HpBar") as HpBar;
+            hp.BossBar(health);
         }
     }
 }

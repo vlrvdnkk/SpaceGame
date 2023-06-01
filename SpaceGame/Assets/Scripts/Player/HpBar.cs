@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class HpBar : MonoBehaviour
 {
-    [SerializeField] private int _curHealth = 0;
-    [SerializeField] private int _maxHealth = 100;   
+    public int _curHealth = 0;
+    public int _maxHealth = 100;   
     [SerializeField] private Slider _healthBar;
     [SerializeField] private Slider _bossBar;
     [SerializeField] private SpriteRenderer _image;
@@ -17,7 +17,7 @@ public class HpBar : MonoBehaviour
     [SerializeField] private BossScript boss;
     [SerializeField] private LaserScript laser;
 
-    void Start()
+    public void Start()
     {
         _curHealth = _maxHealth;
     }
