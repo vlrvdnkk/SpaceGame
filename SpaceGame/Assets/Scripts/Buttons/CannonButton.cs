@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,11 +11,13 @@ public class CannonButton : MonoBehaviour
     [SerializeField] private GameObject _right;
     [SerializeField] private LaserScript _laser;
     [SerializeField] private GameController _gc;
+    [SerializeField] private TextMeshProUGUI _text;
     private int _price;
     private int _counter = 1;
     void Start()
     {
         _price = 200;
+        _text.text = _price.ToString();
         _button.onClick.AddListener(() => Click());
     }
 
@@ -49,6 +52,7 @@ public class CannonButton : MonoBehaviour
                 _laser.damageA *= 2;
                 _counter++;
             }
+            _text.text = _price.ToString();
         }
         else
             _gc.Red();
