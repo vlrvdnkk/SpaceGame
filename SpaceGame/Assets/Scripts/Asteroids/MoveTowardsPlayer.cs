@@ -3,7 +3,7 @@ using UnityEngine;
 public class MoveTowardsPlayer : MonoBehaviour
 {
     private Transform player;
-    [SerializeField] private float speed = 5f;
+    public float speed = 0.5f;
 
     void Start()
     {

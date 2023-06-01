@@ -5,17 +5,12 @@ using Unity.VisualScripting;
 
 public class EnemyScript : MonoBehaviour
 {
-    public int health;
+    public int health = 2;
     //[SerializeField] private Animator anim;
     [SerializeField] private Transform _explosion;
     [SerializeField] private AudioClip _hitSound;
-    public int _energy;
+    public int _energy = 10;
 
-    private void Start()
-    {
-        health = 2;
-        _energy = 10;
-    }
     void OnCollisionEnter2D(Collision2D theCollision)
     {
         if (theCollision.gameObject.name.Contains("laser"))

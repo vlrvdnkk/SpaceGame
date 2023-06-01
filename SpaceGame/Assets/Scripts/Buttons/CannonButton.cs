@@ -13,10 +13,9 @@ public class CannonButton : MonoBehaviour
     [SerializeField] private GameController _gc;
     [SerializeField] private TextMeshProUGUI _text;
     private int _price;
-    private int _counter;
+    private int _counter = 1;
     void Start()
     {
-        _counter = 1;
         _price = 200;
         _text.text = _price.ToString();
         _button.onClick.AddListener(() => Click());
@@ -24,7 +23,7 @@ public class CannonButton : MonoBehaviour
 
     void Click()
     {
-        if (_gc.score >= _price)
+        if (_gc.score > _price)
         {
             _gc.score -= _price;
             _price *= 2;

@@ -1,20 +1,25 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private Transform enemy;
-    [SerializeField] private Transform bigEnemy;
-    private float timeBeforeSpawning = 1.5f;
-    private float timeBetweenEnemies = 0.25f;
-    private float timeBeforeWaves = 2.0f;
+    [SerializeField] private Transform _enemy;
+    [SerializeField] private Transform _bigEnemy;
+    private float _timeBeforeSpawning = 1.5f;
+    private float _timeBetweenEnemies = 0.25f;
+    private float _timeBeforeWaves = 2.0f;
     public int enemiesPerWave = 5;
     public int currentNumberOfEnemies = 0;
     public int score = 0;
     [SerializeField] private int _waveNumber = 0;
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _waveText;
+    [SerializeField] private EnemyScript _enemyScr;
+    [SerializeField] private BossScript _bossScr;
+    [SerializeField] private MoveTowardsPlayer _moveTw;
 
     void Start()
     {
@@ -28,12 +33,15 @@ public class GameController : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
-        yield return new WaitForSeconds(timeBeforeSpawning);
+        yield return new WaitForSeconds(_timeBeforeSpawning);
         while (true)
         {
             if (currentNumberOfEnemies <= 0)
             {
                 _waveNumber++;
+                _enemyScr.health = Convert.ToInt32(Math.Round(Convert.ToDouble(_enemyScr.health) * 1.45));
+                _moveTw.speed = _moveTw.speed * 1.1f;
+                enemiesPerWave = Convert.ToInt32(Math.Round(Convert.ToDouble(enemiesPerWave) * 1.1));
                 if (_waveNumber < 10)
                     _waveText.text = "00" + _waveNumber;
                 else if (_waveNumber < 100 & _waveNumber >= 10)
@@ -44,9 +52,10 @@ public class GameController : MonoBehaviour
                     _waveText.text = "end";
                 if (_waveNumber % 10 == 0)
                 {
-                    Transform enemy = Instantiate(bigEnemy, new Vector3(1.8f, 6.1f, 0), this.transform.rotation);
+                    Transform enemy = Instantiate(_bigEnemy, new Vector3(1.8f, 6.1f, 0), this.transform.rotation);
                     enemy.parent = transform;
                     currentNumberOfEnemies += enemiesPerWave;
+                    _bossScr.health *= 2;
                 }
                 else
                 {
@@ -58,14 +67,14 @@ public class GameController : MonoBehaviour
                         randDirection = Random.Range(45, 125);
                         float posX = this.transform.position.x + (Mathf.Cos((randDirection) * Mathf.Deg2Rad) * randDistance);
                         float posY = this.transform.position.y + (Mathf.Sin((randDirection) * Mathf.Deg2Rad) * randDistance);
-                        Transform enemySmall = Instantiate(enemy, new Vector3(posX, posY, 0), this.transform.rotation);
+                        Transform enemySmall = Instantiate(_enemy, new Vector3(posX, posY, 0), this.transform.rotation);
                         enemySmall.parent = transform;
                         currentNumberOfEnemies++;
-                        yield return new WaitForSeconds(timeBetweenEnemies);
+                        yield return new WaitForSeconds(_timeBetweenEnemies);
                     }
                 }
             }
-            yield return new WaitForSeconds(timeBeforeWaves);
+            yield return new WaitForSeconds(_timeBeforeWaves);
         }
     }
 

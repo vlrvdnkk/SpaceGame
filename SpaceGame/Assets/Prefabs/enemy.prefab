@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689e70b97e7ed304c9597d0d2fee5c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.5
 --- !u!114 &3123632324113630059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,9 +116,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 2
-  anim: {fileID: 2875865345035445847}
   _explosion: {fileID: 7940864541957359358, guid: d4c1995155c84744780ee43cc6935fae, type: 3}
   _hitSound: {fileID: 8300000, guid: fdfbe96ee34559547a75bf9f5eb95894, type: 3}
+  _energy: 10
 --- !u!50 &487995203979049538
 Rigidbody2D:
   serializedVersion: 4
