@@ -21,7 +21,7 @@ public class CreditButton : MonoBehaviour
 
     void Click()
     {
-        if (_gc.score > _price)
+        if (_gc.score >= _price)
         {
             _gc.score -= _price;
             _price *= 2;

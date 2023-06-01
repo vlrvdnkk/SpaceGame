@@ -20,6 +20,7 @@ public class HpBar : MonoBehaviour
     public void Start()
     {
         _curHealth = _maxHealth;
+        _healthBar.value = _curHealth;
     }
 
     void Update()
