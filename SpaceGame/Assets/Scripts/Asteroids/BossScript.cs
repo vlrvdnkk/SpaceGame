@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 
 public class BossScript : MonoBehaviour
 {
-    public int health = 30;
+    public int health = 100;
     //[SerializeField] private Animator anim;
     [SerializeField] private Transform _explosion;
     [SerializeField] private AudioClip _hitSound;
