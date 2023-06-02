@@ -20,12 +20,13 @@ public class ClickButton : MonoBehaviour
 
     void Click()
     {
-        if (_gc.score > _price)
+        if (_gc.score >= _price)
         {
             _gc.score -= _price;
             _price *= 2;
             _laser.damage *= 2;
             _text.text = _price.ToString();
+            _gc.IncreaseScore(0);
         }
         else
             _gc.Red();
