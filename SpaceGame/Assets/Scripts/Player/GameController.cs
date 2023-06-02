@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform _bigEnemy;
     private float _timeBeforeSpawning = 1.5f;
     private float _timeBetweenEnemies = 0.25f;
-    private float _timeBeforeWaves = 2.0f;
+    private float _timeBeforeWaves = 4.0f;
     public int enemiesPerWave;
     public int currentNumberOfEnemies = 0;
     public int score;
@@ -20,11 +20,12 @@ public class GameController : MonoBehaviour
     [SerializeField] private EnemyScript _enemyScr;
     [SerializeField] private BossScript _bossScr;
     [SerializeField] private MoveTowardsPlayer _moveTw;
+    [SerializeField] private AudioClip _waveSound;
 
     void Start()
     {
         score = 0;
-        enemiesPerWave = 5;
+        enemiesPerWave =3;
         StartCoroutine(SpawnEnemies());
     }
 
@@ -41,6 +42,7 @@ public class GameController : MonoBehaviour
             if (currentNumberOfEnemies <= 0)
             {
                 _waveNumber++;
+                GetComponent<AudioSource>().PlayOneShot(_waveSound);
                 if (_waveNumber < 10)
                     _waveText.text = "00" + _waveNumber;
                 else if (_waveNumber < 100 & _waveNumber >= 10)

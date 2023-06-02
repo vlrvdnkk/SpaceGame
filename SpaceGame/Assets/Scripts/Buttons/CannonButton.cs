@@ -12,6 +12,8 @@ public class CannonButton : MonoBehaviour
     [SerializeField] private LaserScript _laser;
     [SerializeField] private GameController _gc;
     [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private AudioClip _hitSound;
+
     private int _price;
     private int _counter;
     void Start()
@@ -28,6 +30,7 @@ public class CannonButton : MonoBehaviour
         {
             _gc.score -= _price;
             _price *= 2;
+            GetComponent<AudioSource>().PlayOneShot(_hitSound);
             if (_counter == 1)
             {
                 _left.SetActive(true);

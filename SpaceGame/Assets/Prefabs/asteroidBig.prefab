@@ -114,10 +114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c43863f2def4c46a8ae201025e52af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  _explosion: {fileID: 7940864541957359358, guid: d4c1995155c84744780ee43cc6935fae, type: 3}
-  _hitSound: {fileID: 8300000, guid: ecfa468e1d3145d4a9f91d40eb67f559, type: 3}
-  gameCon: {fileID: 0}
+  health: 100
+  _explosion: {fileID: 7940864541957359358, guid: 2f5f39703f732794ea28fd7809baf08b, type: 3}
+  _hitSound: {fileID: 8300000, guid: 5688be523a9ce7745b2206067aa368a4, type: 3}
+  _BSenergy: 50
 --- !u!50 &7226239008917981606
 Rigidbody2D:
   serializedVersion: 4

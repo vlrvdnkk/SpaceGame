@@ -5,15 +5,13 @@ using Unity.VisualScripting;
 
 public class BossScript : MonoBehaviour
 {
-    public int health;
+    public int health = 100;
     //[SerializeField] private Animator anim;
     [SerializeField] private Transform _explosion;
     [SerializeField] private AudioClip _hitSound;
-    public int _BSenergy;
+    public int _BSenergy = 50;
     private void Start()
     {
-        health = 100;
-        _BSenergy = 50;
         HpBar hp = GameObject.Find("HPbarBase").GetComponent("HpBar") as HpBar;
         hp.BossBarMax(health);
     }

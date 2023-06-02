@@ -20,6 +20,8 @@ public class HpBar : MonoBehaviour
 
     public void Start()
     {
+        _bossBar.interactable = false;
+        _healthBar.interactable = false;
         _curHealth = _maxHealth;
         _healthBar.value = _curHealth;
     }

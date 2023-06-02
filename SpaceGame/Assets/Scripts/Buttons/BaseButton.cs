@@ -12,6 +12,8 @@ public class BaseButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private SpriteRenderer _image;
     [SerializeField] private Sprite _observatory;
+    [SerializeField] private AudioClip _hitSound;
+
     private int _price;
     void Start()
     {
@@ -26,6 +28,7 @@ public class BaseButton : MonoBehaviour
         {
             _gc.score -= _price;
             _price *= 2;
+            GetComponent<AudioSource>().PlayOneShot(_hitSound);
             _hp.Start();
             _image.sprite = _observatory;
             _text.text = _price.ToString();
