@@ -10,19 +10,22 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform _bigEnemy;
     private float _timeBeforeSpawning = 1.5f;
     private float _timeBetweenEnemies = 0.25f;
-    private float _timeBeforeWaves = 2.0f;
-    public int enemiesPerWave = 5;
+    private float _timeBeforeWaves = 4.0f;
+    public int enemiesPerWave;
     public int currentNumberOfEnemies = 0;
-    public int score = 0;
+    public int score;
     [SerializeField] private int _waveNumber = 0;
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _waveText;
     [SerializeField] private EnemyScript _enemyScr;
     [SerializeField] private BossScript _bossScr;
     [SerializeField] private MoveTowardsPlayer _moveTw;
+    [SerializeField] private AudioClip _waveSound;
 
     void Start()
     {
+        score = 0;
+        enemiesPerWave =3;
         StartCoroutine(SpawnEnemies());
     }
 
@@ -39,9 +42,7 @@ public class GameController : MonoBehaviour
             if (currentNumberOfEnemies <= 0)
             {
                 _waveNumber++;
-                _enemyScr.health = Convert.ToInt32(Math.Round(Convert.ToDouble(_enemyScr.health) * 1.45));
-                _moveTw.speed = _moveTw.speed * 1.1f;
-                enemiesPerWave = Convert.ToInt32(Math.Round(Convert.ToDouble(enemiesPerWave) * 1.1));
+                GetComponent<AudioSource>().PlayOneShot(_waveSound);
                 if (_waveNumber < 10)
                     _waveText.text = "00" + _waveNumber;
                 else if (_waveNumber < 100 & _waveNumber >= 10)
@@ -56,6 +57,7 @@ public class GameController : MonoBehaviour
                     enemy.parent = transform;
                     currentNumberOfEnemies += enemiesPerWave;
                     _bossScr.health *= 2;
+                    _bossScr._BSenergy *= 2;
                 }
                 else
                 {
@@ -73,6 +75,9 @@ public class GameController : MonoBehaviour
                         yield return new WaitForSeconds(_timeBetweenEnemies);
                     }
                 }
+                _enemyScr.health = Convert.ToInt32(Math.Round(Convert.ToDouble(_enemyScr.health) * 1.45));
+                _moveTw.speed = _moveTw.speed * 1.1f;
+                enemiesPerWave = Convert.ToInt32(Math.Round(Convert.ToDouble(enemiesPerWave) * 1.1));
             }
             yield return new WaitForSeconds(_timeBeforeWaves);
         }
@@ -99,8 +104,7 @@ public class GameController : MonoBehaviour
     public void Red()
     {
         _scoreText.color = new Color(255, 0, 0);
-        StartCoroutine(Timer());
-        
+        StartCoroutine(Timer());   
     }
     
     IEnumerator Timer()

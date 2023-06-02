@@ -3,10 +3,11 @@ using UnityEngine;
 public class MoveTowardsPlayer : MonoBehaviour
 {
     private Transform player;
-    public float speed = 0.5f;
+    public float speed;
 
     void Start()
     {
+        speed = 0.5f;
         player = GameObject.Find("cannon base").transform;
     }
 

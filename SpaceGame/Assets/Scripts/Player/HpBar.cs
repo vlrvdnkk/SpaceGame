@@ -16,15 +16,14 @@ public class HpBar : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private BossScript boss;
     [SerializeField] private LaserScript laser;
+    [SerializeField] private GameObject _panel;
 
     public void Start()
     {
+        _bossBar.interactable = false;
+        _healthBar.interactable = false;
         _curHealth = _maxHealth;
-    }
-
-    void Update()
-    {
-
+        _healthBar.value = _curHealth;
     }
 
     public void DamagePlayer(int damage)
@@ -39,6 +38,7 @@ public class HpBar : MonoBehaviour
         {
             _cinemachine.GenerateImpulse();
             anim.SetBool("obDeath", true);
+            StartCoroutine(Timer());
         }
     }
     public void BossBar(int health)
@@ -49,5 +49,10 @@ public class HpBar : MonoBehaviour
     {
         _bossBar.maxValue = health;
         _bossBar.value = health;
+    }
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(2);
+        _panel.SetActive(true);
     }
 }

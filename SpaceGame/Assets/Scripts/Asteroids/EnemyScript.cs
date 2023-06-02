@@ -11,6 +11,10 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private AudioClip _hitSound;
     public int _energy = 10;
 
+    private void Start()
+    {
+
+    }
     void OnCollisionEnter2D(Collision2D theCollision)
     {
         if (theCollision.gameObject.name.Contains("laser"))

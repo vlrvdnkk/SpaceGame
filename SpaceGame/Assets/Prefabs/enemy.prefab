@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 2
   _explosion: {fileID: 7940864541957359358, guid: d4c1995155c84744780ee43cc6935fae, type: 3}
-  _hitSound: {fileID: 8300000, guid: fdfbe96ee34559547a75bf9f5eb95894, type: 3}
+  _hitSound: {fileID: 8300000, guid: 539352ee4a1cd934ea8c5e5c1ac4bd1b, type: 3}
   _energy: 10
 --- !u!50 &487995203979049538
 Rigidbody2D:
